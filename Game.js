@@ -1,16 +1,16 @@
-const CARD_COUNT = 52;
-const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
+export const CARD_COUNT = 52;
+export const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
 
 const PLAYER_1 = 'Player 1';
 const PLAYER_2 = 'Player 2';
 
-class Card {
+export class Card {
     constructor(value) {
         this.value = value;
     }
 }
 
-class Player {
+export class Player {
     constructor(cards) {
         this.cards = cards;
     }

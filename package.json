@@ -4,12 +4,23 @@
   "description": "♠️ Card game card ♣️",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "test": "jest"
   },
   "repository": "git@github.com:mutaimwiti/card-game.git",
   "author": "Mutai Mwiti <mutaimwiti40@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "nodemon": "^2.0.16"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.2",
+    "babel-jest": "^28.1.1",
+    "jest": "^28.1.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
   }
 }
