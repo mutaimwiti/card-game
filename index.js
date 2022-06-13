@@ -55,8 +55,8 @@ class Game {
         // discarded. Rounds are played until all the cards are discarded.
 
         const score = {
-            p1: 0,
-            p2: 0,
+            [PLAYER_1]: 0,
+            [PLAYER_2]: 0,
         };
 
         let round = 0;
@@ -76,10 +76,10 @@ class Game {
             });
 
             if (p1Card.value > p2Card.value) {
-                score.p1++;
+                score[PLAYER_1]++;
                 console.log('winner: ', PLAYER_1, '\n');
             } else {
-                score.p2++;
+                score[PLAYER_2]++;
                 console.log('winner: ', PLAYER_2, '\n');
             }
         }
@@ -87,11 +87,12 @@ class Game {
         // When all rounds are played you should print each player's final score along
         // with an indication of which player won overall.
         console.log('Final score');
-        console.log(`${PLAYER_1} score: `, score.p1);
-        console.log(`${PLAYER_2} score: `, score.p2);
+        for (let player of Object.keys(score)) {
+            console.log(`${player} score: `, score[player]);
+        }
 
         // At the end of the game the player who has the most points wins.
-        const winner = score.p1 > score.p2 ? PLAYER_1: PLAYER_2;
+        const winner = score[PLAYER_1] > score[PLAYER_2] ? PLAYER_1: PLAYER_2;
 
         console.log('winner of the game', winner);
     }
