@@ -62,23 +62,46 @@ describe('Game', function () {
         });
     });
 
+    describe('resetScore()',  () => {
+        it('should reset score to 0', function () {
+            const game = new Game();
+
+            // setting the score manually for now since score has a public scope
+            game.score[PLAYER_1] = 10;
+            game.score[PLAYER_2] = 5;
+
+            game.resetScore();
+
+            for (let player of Object.keys(game.score)) {
+                expect(game.score[player]).toEqual(0);
+            }
+        });
+    });
+
     describe('start()',  () => {
-        it.only('should simulate the running of the game and produce a winner', () => {
+        it('should simulate the running of the game and produce a winner', () => {
             const game = new Game();
 
             const consoleLogSpy = jest.spyOn(console, 'log');
+            const resetScore = jest.spyOn(game, 'resetScore');
             const shuffleSpy = jest.spyOn(game, 'shuffle');
             const dealSpy = jest.spyOn(game, 'shuffle');
+
+            expect(game.score[PLAYER_1]).toEqual(0);
+            expect(game.score[PLAYER_2]).toEqual(0);
 
             game.start();
 
             const expectedWinner = game.score[PLAYER_1] > game.score[PLAYER_2] ? PLAYER_1 : PLAYER_2;
 
-            expect(consoleLogSpy).toHaveBeenCalledWith('winner of the game', expectedWinner);
+            expect(resetScore).toHaveBeenCalled();
             expect(shuffleSpy).toHaveBeenCalled();
             expect(dealSpy).toHaveBeenCalled();
+            expect(consoleLogSpy).toHaveBeenCalledWith('winner of the game', expectedWinner);
+
 
             consoleLogSpy.mockClear();
+            resetScore.mockClear();
             shuffleSpy.mockClear();
             dealSpy.mockClear();
         });

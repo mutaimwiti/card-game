@@ -27,10 +27,7 @@ export class Game {
             .fill(null)
             .map((v, i) => new Card(i + 1));
 
-        this.score = {
-            [PLAYER_1]: 0,
-            [PLAYER_2]: 0,
-        }
+        this.resetScore();
     }
 
     shuffle() {
@@ -48,7 +45,15 @@ export class Game {
         this.player2 = new Player(this.deck.slice(PER_PLAYER_CARD_COUNT, CARD_COUNT));
     }
 
+    resetScore() {
+        this.score = {
+            [PLAYER_1]: 0,
+            [PLAYER_2]: 0,
+        }
+    }
+
     start() {
+        this.resetScore();
         // The deck is shuffled
         this.shuffle();
         // We deal out those cards between the 2 players. Each player gets half the deck.
