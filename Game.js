@@ -1,8 +1,8 @@
 export const CARD_COUNT = 52;
 export const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
 
-const PLAYER_1 = 'Player 1';
-const PLAYER_2 = 'Player 2';
+export const PLAYER_1 = 'Player 1';
+export const PLAYER_2 = 'Player 2';
 
 export class Card {
     constructor(value) {
@@ -26,6 +26,11 @@ export class Game {
         this.deck = new Array(CARD_COUNT)
             .fill(null)
             .map((v, i) => new Card(i + 1));
+
+        this.score = {
+            [PLAYER_1]: 0,
+            [PLAYER_2]: 0,
+        }
     }
 
     shuffle() {
@@ -54,11 +59,6 @@ export class Game {
         // "wins" the round and gets a point. The two cards being compared are
         // discarded. Rounds are played until all the cards are discarded.
 
-        const score = {
-            [PLAYER_1]: 0,
-            [PLAYER_2]: 0,
-        };
-
         let round = 0;
 
         while (round < PER_PLAYER_CARD_COUNT) {
@@ -76,10 +76,10 @@ export class Game {
             });
 
             if (p1Card.value > p2Card.value) {
-                score[PLAYER_1]++;
+                this.score[PLAYER_1]++;
                 console.log('winner: ', PLAYER_1, '\n');
             } else {
-                score[PLAYER_2]++;
+                this.score[PLAYER_2]++;
                 console.log('winner: ', PLAYER_2, '\n');
             }
         }
@@ -87,12 +87,12 @@ export class Game {
         // When all rounds are played you should print each player's final score along
         // with an indication of which player won overall.
         console.log('Final score');
-        for (let player of Object.keys(score)) {
-            console.log(`${player} score: `, score[player]);
+        for (let player of Object.keys(this.score)) {
+            console.log(`${player} score: `, this.score[player]);
         }
 
         // At the end of the game the player who has the most points wins.
-        const winner = score[PLAYER_1] > score[PLAYER_2] ? PLAYER_1: PLAYER_2;
+        const winner = this.score[PLAYER_1] > this.score[PLAYER_2] ? PLAYER_1: PLAYER_2;
 
         console.log('winner of the game', winner);
     }

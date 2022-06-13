@@ -2,6 +2,8 @@ import {
     Card,
     Game,
     Player,
+    PLAYER_1,
+    PLAYER_2,
     CARD_COUNT,
     PER_PLAYER_CARD_COUNT,
 } from "./Game";
@@ -64,13 +66,21 @@ describe('Game', function () {
         it.only('should simulate the running of the game and produce a winner', () => {
             const game = new Game();
 
+            const consoleLogSpy = jest.spyOn(console, 'log');
             const shuffleSpy = jest.spyOn(game, 'shuffle');
             const dealSpy = jest.spyOn(game, 'shuffle');
 
             game.start();
 
+            const expectedWinner = game.score[PLAYER_1] > game.score[PLAYER_2] ? PLAYER_1 : PLAYER_2;
+
+            expect(consoleLogSpy).toHaveBeenCalledWith('winner of the game', expectedWinner);
             expect(shuffleSpy).toHaveBeenCalled();
             expect(dealSpy).toHaveBeenCalled();
+
+            consoleLogSpy.mockClear();
+            shuffleSpy.mockClear();
+            dealSpy.mockClear();
         });
     });
 });
