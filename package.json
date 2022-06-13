@@ -4,7 +4,7 @@
   "description": "♠️ Card game card ♣️",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon .",
+    "start:dev": "nodemon --exec babel-node .",
     "test": "jest"
   },
   "repository": "git@github.com:mutaimwiti/card-game.git",
@@ -14,6 +14,7 @@
     "nodemon": "^2.0.16"
   },
   "devDependencies": {
+    "@babel/node": "^7.17.10",
     "@babel/preset-env": "^7.18.2",
     "babel-jest": "^28.1.1",
     "jest": "^28.1.1"
