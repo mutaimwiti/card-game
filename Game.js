@@ -8,6 +8,10 @@ export class Card {
     constructor(value) {
         this.value = value;
     }
+
+    isGreater(otherCard) {
+        return this.value > otherCard.value;
+    }
 }
 
 export class Player {
@@ -95,7 +99,7 @@ export class Game {
                 [PLAYER_2]: p2Card.value
             });
 
-            if (p1Card.value > p2Card.value) {
+            if (p1Card.isGreater(p2Card)) {
                 this.score[PLAYER_1]++;
                 console.log('winner: ', PLAYER_1, '\n');
             } else {
