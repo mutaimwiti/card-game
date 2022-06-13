@@ -52,6 +52,21 @@ export class Game {
         }
     }
 
+    printOutcome() {
+        console.log('Final score');
+        for (let player of Object.keys(this.score)) {
+            console.log(`${player} score: `, this.score[player]);
+        }
+
+        if (this.score[PLAYER_1] > this.score[PLAYER_2]) {
+            console.log('Winner of the game:', PLAYER_1);
+        } else if (this.score[PLAYER_2] > this.score[PLAYER_1]) {
+            console.log('Winner of the game:', PLAYER_2);
+        } else {
+            console.log("It's a tie!");
+        }
+    }
+
     start() {
         this.resetScore();
         // The deck is shuffled
@@ -91,14 +106,6 @@ export class Game {
 
         // When all rounds are played you should print each player's final score along
         // with an indication of which player won overall.
-        console.log('Final score');
-        for (let player of Object.keys(this.score)) {
-            console.log(`${player} score: `, this.score[player]);
-        }
-
-        // At the end of the game the player who has the most points wins.
-        const winner = this.score[PLAYER_1] > this.score[PLAYER_2] ? PLAYER_1: PLAYER_2;
-
-        console.log('winner of the game', winner);
+        this.printOutcome();
     }
 }
