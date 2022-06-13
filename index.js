@@ -1,6 +1,9 @@
 const CARD_COUNT = 52;
 const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
 
+const PLAYER_1 = 'Player 1';
+const PLAYER_2 = 'Player 2';
+
 class Card {
     constructor(value) {
         this.value = value;
@@ -33,7 +36,6 @@ class Game {
             this.deck[i] = this.deck[j];
             this.deck[j] = temp;
         }
-
     }
 
     deal() {
@@ -68,24 +70,28 @@ class Game {
             // When each round is played you should print each player's card value
             // along with an indication of which player won that round.
             console.log('round', round);
-            console.log('card values', { p1: p1Card.value, p2: p2Card.value });
+            console.log({
+                [PLAYER_1]: p1Card.value,
+                [PLAYER_2]: p2Card.value
+            });
 
             if (p1Card.value > p2Card.value) {
                 score.p1++;
-                console.log('round winner', 'player 1');
+                console.log('winner: ', PLAYER_1, '\n');
             } else {
                 score.p2++;
-                console.log('round winner', 'player 2');
+                console.log('winner: ', PLAYER_2, '\n');
             }
         }
 
         // When all rounds are played you should print each player's final score along
         // with an indication of which player won overall.
-        console.log('p1 score', score.p1);
-        console.log('p2 score', score.p2);
+        console.log('Final score');
+        console.log(`${PLAYER_1} score: `, score.p1);
+        console.log(`${PLAYER_2} score: `, score.p2);
 
         // At the end of the game the player who has the most points wins.
-        const winner = score.p1 > score.p2 ? 'Player 1': 'Player 2';
+        const winner = score.p1 > score.p2 ? PLAYER_1: PLAYER_2;
 
         console.log('winner of the game', winner);
     }
