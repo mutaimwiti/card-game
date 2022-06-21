@@ -13,16 +13,6 @@ or
 npm install
 ```
 
-### Watch
-Run this command to start the game in dev mode.
-```bash
-yarn watch
-```
-or
-```bash
-npm run watch
-```
-
 ### Run
 Run this command to start the game.
 ```bash
@@ -31,6 +21,16 @@ yarn start
 or
 ```bash
 npm start
+```
+
+### Watch
+Run this command to start the game in dev mode.
+```bash
+yarn watch
+```
+or
+```bash
+npm run watch
 ```
 
 ### Run tests
