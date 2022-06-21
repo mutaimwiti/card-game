@@ -1,5 +1,5 @@
-import { Card } from "../Card/Card";
-import { Player } from "../Player/Player";
+import Card from "../Card";
+import Player from "../Player";
 
 export const CARD_COUNT = 52;
 export const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
@@ -7,7 +7,7 @@ export const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
 export const PLAYER_1 = 'Player 1';
 export const PLAYER_2 = 'Player 2';
 
-export class Game {
+export default class Game {
     constructor() {
         // We start with the deck of 52 cards, each uniquely numbered from 1 to 53
         this.deck = new Array(CARD_COUNT)
