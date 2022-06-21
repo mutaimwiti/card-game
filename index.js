@@ -1,3 +1,3 @@
-import { Game } from "./src/Game";
+import { Game } from "./src/Game/Game";
 
 new Game().start();

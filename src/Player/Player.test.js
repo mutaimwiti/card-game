@@ -1,4 +1,4 @@
-import { Card } from "./Card";
+import { Card } from "../Card/Card";
 import { Player } from "./Player";
 
 describe('Player',  function () {

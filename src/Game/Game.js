@@ -1,5 +1,5 @@
-import { Card } from "./Card";
-import { Player } from "./Player";
+import { Card } from "../Card/Card";
+import { Player } from "../Player/Player";
 
 export const CARD_COUNT = 52;
 export const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
