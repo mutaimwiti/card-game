@@ -1,44 +1,12 @@
 import {
-    Card,
     Game,
-    Player,
     PLAYER_1,
     PLAYER_2,
     CARD_COUNT,
     PER_PLAYER_CARD_COUNT,
 } from "./Game";
-
-describe('Card',  function () {
-    describe('isGreater()',  () => {
-        it('should return true if card value is greater than other card value',  () => {
-            const card = new Card(15);
-            const otherCard = new Card(4);
-
-            expect(card.isGreater(otherCard)).toEqual(true);
-        });
-
-        it('should return false if card value is less than other card value', () => {
-            const card = new Card(10);
-            const otherCard = new Card(48);
-
-            expect(card.isGreater(otherCard)).toEqual(false);
-        });
-    });
-});
-
-describe('Player',  function () {
-    describe('play()',  () => {
-        it('should return the topmost card', function () {
-            const player = new Player([
-                new Card(5),
-                new Card(12),
-            ]);
-            const card = player.play();
-
-            expect(card).toEqual(new Card(12))
-        });
-    });
-});
+import { Card } from "./Card";
+import { Player } from "./Player";
 
 describe('Game', function () {
     beforeEach(() => {

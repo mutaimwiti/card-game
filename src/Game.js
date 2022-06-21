@@ -1,28 +1,11 @@
+import { Card } from "./Card";
+import { Player } from "./Player";
+
 export const CARD_COUNT = 52;
 export const PER_PLAYER_CARD_COUNT = CARD_COUNT / 2;
 
 export const PLAYER_1 = 'Player 1';
 export const PLAYER_2 = 'Player 2';
-
-export class Card {
-    constructor(value) {
-        this.value = value;
-    }
-
-    isGreater(otherCard) {
-        return this.value > otherCard.value;
-    }
-}
-
-export class Player {
-    constructor(cards) {
-        this.cards = cards;
-    }
-
-    play() {
-        return this.cards.pop();
-    }
-}
 
 export class Game {
     constructor() {
