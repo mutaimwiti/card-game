@@ -1,3 +1,7 @@
 import Game from "./src/Game";
 
-new Game().start();
+export const run = () => {
+    new Game().start();
+}
+
+run();
