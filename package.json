@@ -2,27 +2,32 @@
   "name": "card-game",
   "version": "1.0.0",
   "description": "♠️ Card game card ♣️",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "start:dev": "nodemon --exec babel-node .",
+    "build": "babel ./src -d dist --copy-files",
+    "start": "yarn build && node dist/index.js",
+    "start:dev": "nodemon --exec babel-node src/index.js",
     "test": "jest"
   },
   "repository": "git@github.com:mutaimwiti/card-game.git",
   "author": "Mutai Mwiti <mutaimwiti40@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "nodemon": "^2.0.16"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
     "@babel/node": "^7.17.10",
     "@babel/preset-env": "^7.18.2",
     "babel-jest": "^28.1.1",
-    "jest": "^28.1.1"
+    "jest": "^28.1.1",
+    "nodemon": "^2.0.16"
   },
   "jest": {
     "transform": {
       "^.+\\.[t|j]sx?$": "babel-jest"
     },
-    "setupFiles": ["<rootDir>/setupTests.js"]
+    "setupFiles": [
+      "<rootDir>/setupTests.js"
+    ]
   }
 }
