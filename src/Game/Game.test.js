@@ -1,11 +1,7 @@
-import Game, {
-    PLAYER_1,
-    PLAYER_2,
-    CARD_COUNT,
-    PER_PLAYER_CARD_COUNT,
-} from "./Game";
+import Game from "./Game";
 import Card from "./Card";
 import Player from "./Player";
+import {CARD_COUNT, PER_PLAYER_CARD_COUNT, PLAYER_1, PLAYER_2} from "../constants";
 
 describe('Game', function () {
     beforeEach(() => {
