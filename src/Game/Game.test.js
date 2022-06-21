@@ -4,8 +4,8 @@ import Game, {
     CARD_COUNT,
     PER_PLAYER_CARD_COUNT,
 } from "./Game";
-import Card from "../Card";
-import Player from "../Player";
+import Card from "./Card";
+import Player from "./Player";
 
 describe('Game', function () {
     beforeEach(() => {
