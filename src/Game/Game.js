@@ -36,7 +36,8 @@ export default class Game {
                 tiedIds = [];
                 maxScore = score;
                 winnerId = playerId;
-                tiedIds.push(playerId); // if we're to have ties later we need this playerId to be captured
+                // if we're to have ties, we need to capture this playerId
+                tiedIds = [playerId];
             } else if (score === maxScore) {
                 tie = true;
                 tiedIds.push(playerId);
@@ -46,7 +47,7 @@ export default class Game {
         if (tie) {
             const message = tiedIds.length > 2 ?
                 `It's a tie among players: ${tiedIds.toString()}`:
-                `It's a tie between players: ${tiedIds[0]} and  ${tiedIds[0]}`;
+                `It's a tie between players: ${tiedIds[0]} and  ${tiedIds[1]}`;
 
             console.log(message);
         } else {
