@@ -1,6 +1,11 @@
 export default class Player {
-    constructor() {
+    constructor(id) {
+        this.id = id;
         this.cards = [];
+    }
+
+    getId() {
+        return this.id;
     }
 
     receiveCard(card) {

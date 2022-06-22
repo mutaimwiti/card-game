@@ -3,6 +3,10 @@ export default class Card {
         this.value = value;
     }
 
+    getValue() {
+        return this.value;
+    }
+
     isGreater(otherCard) {
         return this.value > otherCard.value;
     }

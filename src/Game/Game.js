@@ -1,31 +1,56 @@
 import Deck from "./Deck";
 import Player from "./Player";
-import { PER_PLAYER_CARD_COUNT, PLAYER_1, PLAYER_2 } from "../constants";
+import Card from "./Card";
+
+// have a variable number of players
+// what should we do about the number of cards? - equal no of cards
 
 export default class Game {
-    constructor() {
+    constructor(playerCount) {
+        this.players = new Array(playerCount)
+            .fill(null)
+            .map((v, i) => new Player(i + 1));
         this.resetScore();
     }
 
     resetScore() {
-        this.score = {
-            [PLAYER_1]: 0,
-            [PLAYER_2]: 0,
+        this.score = {}; // map
+        for (let player of this.players) {
+            this.score[player.getId()] = 0;
         }
     }
 
     printOutcome() {
         console.log('Final score');
-        for (let player of Object.keys(this.score)) {
-            console.log(`${player} score: `, this.score[player]);
+        for (let playerId of Object.keys(this.score)) {
+            console.log(`Player ${playerId} score: `, this.score[playerId]);
         }
 
-        if (this.score[PLAYER_1] > this.score[PLAYER_2]) {
-            console.log('Winner of the game:', PLAYER_1);
-        } else if (this.score[PLAYER_2] > this.score[PLAYER_1]) {
-            console.log('Winner of the game:', PLAYER_2);
+        // ensure that the winner has the highest score
+        // consider the case of a tie
+        let maxScore = 0, winnerId = null, tie = false, tiedIds = [];
+
+        for (let [playerId, score] of Object.entries(this.score)) {
+            if (score > maxScore) {
+                tie = false;
+                tiedIds = [];
+                maxScore = score;
+                winnerId = playerId;
+                tiedIds.push(playerId); // if we're to have ties later we need this playerId to be captured
+            } else if (score === maxScore) {
+                tie = true;
+                tiedIds.push(playerId);
+            }
+        }
+
+        if (tie) {
+            const message = tiedIds.length > 2 ?
+                `It's a tie among players: ${tiedIds.toString()}`:
+                `It's a tie between players: ${tiedIds[0]} and  ${tiedIds[0]}`;
+
+            console.log(message);
         } else {
-            console.log("It's a tie!");
+            console.log('Winner of the game: Player', winnerId);
         }
     }
 
@@ -36,45 +61,54 @@ export default class Game {
         // The deck is shuffled
         deck.shuffle();
 
-        // We deal out those cards between the 2 players. Each player gets half the deck.
-        const player1 = new Player();
-        const player2 = new Player();
+        // We deal out those cards between the players. All players get an equal number of cards.
+        let maxRounds = 0;
 
-        while (deck.remainingCards() > 1) {
-            player1.receiveCard(deck.deal());
-            player2.receiveCard(deck.deal());
+        while (deck.remainingCards() >= this.players.length) {
+            maxRounds++;
+            for (let player of this.players) {
+                player.receiveCard(deck.deal());
+            }
         }
 
-        // On each turn of the game, both players turn over their topmost card, and they
-        // compare the value of those cards. The player with the higher valued card
-        // "wins" the round and gets a point. The two cards being compared are
-        // discarded. Rounds are played until all the cards are discarded.
+        console.log('maxRounds', maxRounds);
+
+        // On each turn of the game, all players turn over their topmost card, and they
+        // compare the value of those cards. The player with the highest valued card
+        // "wins" the round and gets a point. The cards being compared are
+        // discarded. Rounds are played until all the cards are
+        // discarded.
 
         this.resetScore();
 
         let round = 0;
 
-        while (round < PER_PLAYER_CARD_COUNT) {
+        while (round < maxRounds) {
             round++;
-
-            const p1Card = player1.play();
-            const p2Card = player2.play();
-
             // When each round is played you should print each player's card value
             // along with an indication of which player won that round.
             console.log('round', round);
-            console.log({
-                [PLAYER_1]: p1Card.value,
-                [PLAYER_2]: p2Card.value
-            });
 
-            if (p1Card.isGreater(p2Card)) {
-                this.score[PLAYER_1]++;
-                console.log('winner: ', PLAYER_1, '\n');
-            } else {
-                this.score[PLAYER_2]++;
-                console.log('winner: ', PLAYER_2, '\n');
+            const cardValues = {};
+
+            let maxCard = new Card(0), winner = null;
+
+            for (let player of this.players) {
+                const card = player.play();
+
+                cardValues[`Player ${player.getId()}`] = card.getValue();
+
+                if (card.isGreater(maxCard)) {
+                    maxCard = card;
+                    winner = player;
+                }
             }
+
+            this.score[winner.getId()]++;
+
+            console.log(cardValues);
+
+            console.log('winner: Player', winner.getId(), '\n');
         }
 
         // When all rounds are played you should print each player's final score along
