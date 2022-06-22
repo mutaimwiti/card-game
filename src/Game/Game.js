@@ -47,7 +47,7 @@ export default class Game {
         if (tie) {
             const message = tiedIds.length > 2 ?
                 `It's a tie among players: ${tiedIds.toString()}`:
-                `It's a tie between players: ${tiedIds[0]} and  ${tiedIds[1]}`;
+                `It's a tie between players: ${tiedIds[0]} and ${tiedIds[1]}`;
 
             console.log(message);
         } else {
