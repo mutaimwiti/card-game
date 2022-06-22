@@ -1,30 +1,10 @@
-import Card from "./Card";
+import Deck from "./Deck";
 import Player from "./Player";
-import { CARD_COUNT, PER_PLAYER_CARD_COUNT, PLAYER_1, PLAYER_2 } from "../constants";
+import { PER_PLAYER_CARD_COUNT, PLAYER_1, PLAYER_2 } from "../constants";
 
 export default class Game {
     constructor() {
-        // We start with the deck of 52 cards, each uniquely numbered from 1 to 53
-        this.deck = new Array(CARD_COUNT)
-            .fill(null)
-            .map((v, i) => new Card(i + 1));
-
         this.resetScore();
-    }
-
-    shuffle() {
-        for(let i = CARD_COUNT - 1; i > 0; i--) {
-            // get a random card (j) with which to shuffle with the current one (i)
-            const j = Math.floor(Math.random() * (i + 1));
-            const temp = this.deck[i];
-            this.deck[i] = this.deck[j];
-            this.deck[j] = temp;
-        }
-    }
-
-    deal() {
-        this.player1 = new Player(this.deck.slice(0, PER_PLAYER_CARD_COUNT));
-        this.player2 = new Player(this.deck.slice(PER_PLAYER_CARD_COUNT, CARD_COUNT));
     }
 
     resetScore() {
@@ -50,24 +30,35 @@ export default class Game {
     }
 
     start() {
-        this.resetScore();
+        // We start with the deck of 52 cards, each uniquely numbered from 1 to 53
+        const deck = new Deck();
+
         // The deck is shuffled
-        this.shuffle();
+        deck.shuffle();
+
         // We deal out those cards between the 2 players. Each player gets half the deck.
-        this.deal();
+        const player1 = new Player();
+        const player2 = new Player();
+
+        while (deck.remainingCards() > 1) {
+            player1.receiveCard(deck.deal());
+            player2.receiveCard(deck.deal());
+        }
 
         // On each turn of the game, both players turn over their topmost card, and they
         // compare the value of those cards. The player with the higher valued card
         // "wins" the round and gets a point. The two cards being compared are
         // discarded. Rounds are played until all the cards are discarded.
 
+        this.resetScore();
+
         let round = 0;
 
         while (round < PER_PLAYER_CARD_COUNT) {
             round++;
 
-            const p1Card = this.player1.play();
-            const p2Card = this.player2.play();
+            const p1Card = player1.play();
+            const p2Card = player2.play();
 
             // When each round is played you should print each player's card value
             // along with an indication of which player won that round.

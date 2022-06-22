@@ -1,48 +1,7 @@
 import Game from "./Game";
-import Card from "./Card";
-import Player from "./Player";
-import {CARD_COUNT, PER_PLAYER_CARD_COUNT, PLAYER_1, PLAYER_2} from "../constants";
+import { PLAYER_1, PLAYER_2 } from "../constants";
 
 describe('Game', function () {
-    beforeEach(() => {
-    });
-
-    it('should create a deck of 52 cards',  () => {
-        const game = new Game();
-
-        expect(game.deck.length).toEqual(52);
-        expect(game.deck[0]).toBeInstanceOf(Card);
-    });
-
-    describe('shuffle()',  () => {
-        it('should shuffle the deck of cards', function () {
-            const game = new Game();
-            const deckBeforeShuffle = [...game.deck];
-            game.shuffle();
-
-            expect(deckBeforeShuffle).not.toEqual(game.deck);
-        });
-    });
-
-    describe('deal()',  () => {
-        it('should instantiate 2 players with cards from the deck', function () {
-            const game = new Game();
-
-            expect(game.player1).toBeUndefined();
-            expect(game.player2).toBeUndefined();
-
-            game.deal();
-
-            const expectedPlayer1Cards = game.deck.slice(0, PER_PLAYER_CARD_COUNT);
-            const expectedPlayer2Cards = game.deck.slice(PER_PLAYER_CARD_COUNT, CARD_COUNT);
-
-            expect(game.player1).toBeInstanceOf(Player);
-            expect(game.player2).toBeInstanceOf(Player);
-            expect(game.player1.cards).toEqual(expectedPlayer1Cards);
-            expect(game.player2.cards).toEqual(expectedPlayer2Cards);
-        });
-    });
-
     describe('resetScore()',  () => {
         it('should reset score to 0', function () {
             const game = new Game();
@@ -135,20 +94,14 @@ describe('Game', function () {
 
             const printOutcomeSpy = jest.spyOn(game, 'printOutcome');
             const resetScoreSpy = jest.spyOn(game, 'resetScore');
-            const shuffleSpy = jest.spyOn(game, 'shuffle');
-            const dealSpy = jest.spyOn(game, 'shuffle');
 
             game.start();
 
             expect(printOutcomeSpy).toHaveBeenCalled();
             expect(resetScoreSpy).toHaveBeenCalled();
-            expect(shuffleSpy).toHaveBeenCalled();
-            expect(dealSpy).toHaveBeenCalled();
 
             printOutcomeSpy.mockClear();
             resetScoreSpy.mockClear();
-            shuffleSpy.mockClear();
-            dealSpy.mockClear();
         });
     });
 });
