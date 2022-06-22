@@ -7,7 +7,7 @@ export default class Deck {
         this.cards = new Array(CARD_COUNT)
             .fill(null)
             .map((v, i) =>  new Card(i + 1));
-        this.cardsDealt = 0;
+        this.dealtCount = 0;
     }
 
     shuffle() {
@@ -18,19 +18,19 @@ export default class Deck {
             this.cards[i] = this.cards[j];
             this.cards[j] = temp;
         }
-        this.cardsDealt = 0;
+        this.dealtCount = 0;
     }
 
     deal() {
-        if (this.cardsDealt < CARD_COUNT) {
-            const nextCard = this.cards[this.cardsDealt];
-            this.cardsDealt++;
+        if (this.dealtCount < CARD_COUNT) {
+            const nextCard = this.cards[this.dealtCount];
+            this.dealtCount++;
             return nextCard;
         }
         throw new Error('All cards have been dealt');
     }
 
     remainingCards() {
-        return CARD_COUNT - this.cardsDealt;
+        return CARD_COUNT - this.dealtCount;
     }
 }
