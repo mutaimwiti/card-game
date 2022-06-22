@@ -1,6 +1,10 @@
 export default class Player {
-    constructor(cards) {
-        this.cards = cards;
+    constructor() {
+        this.cards = [];
+    }
+
+    receiveCard(card) {
+        this.cards.push(card);
     }
 
     play() {
